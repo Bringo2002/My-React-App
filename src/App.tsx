@@ -1,29 +1,75 @@
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  LoaderFunctionArgs,
+} from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import HomePage from './pages/HomePage';
+import JobsPage from './pages/JobsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import JobPage, { jobLoader } from './pages/JobPage';
+import AddJobPage from './pages/AddJobPage';
+import EditJobPage from './pages/EditJobPage';
 
+const App: React.FC = () => {
+  // Add New Job
+  const addJob = async (newJob: { title: string; description: string }) => {
+    await fetch('/api/jobs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newJob),
+    });
+    return;
+  };
 
-function App() {
-  return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600 mb-4">
-        Tailwind CSS Test
-      </h1>
+  // Delete Job
+  const deleteJob = async (id: string) => {
+    await fetch(`/api/jobs/${id}`, {
+      method: 'DELETE',
+    });
+    return;
+  };
 
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <p className="text-gray-700 text-base mb-2">
-          If you see a blue heading and this styled card, your Tailwind CSS configuration is likely working!
-        </p>
+  // Update Job
+  const updateJob = async (job: { id: string; title: string; description: string }) => {
+    await fetch(`/api/jobs/${job.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(job),
+    });
+    return;
+  };
 
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          Click Me!
-        </button>
-      </div>
-
-      <div className="mt-4">
-        <p className="text-sm text-gray-500">
-          Using Tailwind v3
-        </p>
-      </div>
-    </div>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path='/jobs' element={<JobsPage />} />
+        <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
+        <Route
+          path='/edit-job/:id'
+          element={<EditJobPage updateJobSubmit={updateJob} />}
+          loader={({ params }: LoaderFunctionArgs) => jobLoader({ params: { id: params.id as string } })}
+        />
+        <Route
+          path='/jobs/:id'
+          element={<JobPage deleteJob={deleteJob} />}
+          loader={({ params }: LoaderFunctionArgs) => jobLoader({ params: { id: params.id as string } })}
+        />
+        <Route path='*' element={<NotFoundPage />} />
+      </Route>
+    )
   );
-}
+
+  return <RouterProvider router={router} />;
+};
 
 export default App;
+
+
