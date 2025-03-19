@@ -6,6 +6,8 @@ import {
   LoaderFunctionArgs,
 } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import LoginPage from './pages/LoginPage';
+
 import HomePage from './pages/HomePage';
 import JobsPage from './pages/JobsPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -62,7 +64,9 @@ const App: React.FC = () => {
           element={<JobPage deleteJob={deleteJob} />}
           loader={({ params }: LoaderFunctionArgs) => jobLoader({ params: { id: params.id as string } })}
         />
+        <Route path='/login' element={<LoginPage />} />
         <Route path='*' element={<NotFoundPage />} />
+
       </Route>
     )
   );
@@ -71,5 +75,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
