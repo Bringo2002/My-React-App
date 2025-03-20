@@ -7,18 +7,18 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({
   title = 'Find Your Dream Job',
-  subtitle = 'Get the best job offers from top companies',
-}) => {
+  subtitle = 'Get the best job offers from top companies',}) => {
   return (
-    <section className='bg-blue-800 py-20 mb-4'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center'>
+    <section className='bg-blue-800 py-20 mb-4 '>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center '>
         <div className='text-center'>
-          <h1 className='text-4xl font-extrabold text-white sm:text-5xl md:text-6xl'>
+          <h1 className='text-4xl font-extrabold text-white sm:text-5xl md:text-6xl '>
+
             {title}
           </h1>
           <p className='my-4 text-xl text-white'>{subtitle}</p>
         </div>
-      </div>
+      </div> 
     </section>
   );
 };

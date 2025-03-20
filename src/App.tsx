@@ -7,6 +7,9 @@ import {
 } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/register';
+
+
 
 import HomePage from './pages/HomePage';
 import JobsPage from './pages/JobsPage';
@@ -64,8 +67,11 @@ const App: React.FC = () => {
           element={<JobPage deleteJob={deleteJob} />}
           loader={({ params }: LoaderFunctionArgs) => jobLoader({ params: { id: params.id as string } })}
         />
+       <Route path='register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='*' element={<NotFoundPage />} />
+
+      <Route path="*" element={<NotFoundPage />} />
+
 
       </Route>
     )

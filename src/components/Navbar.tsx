@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Brand from './Brand'; // Importing the brand name
+//import Brand from './Brand'; // Importing the brand name
 
 const Navbar = () => {
   return (
