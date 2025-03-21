@@ -1,7 +1,7 @@
 # FreeLux App
 
 ## Description
-My React App is a modern web application built with React and TypeScript. It provides a user-friendly interface for managing various functionalities, including user registration and job listings.
+FreeLux is a modern web application built with React and TypeScript. It provides a user-friendly interface for managing various functionalities, including user registration and job listings.
 
 ## Features
 - User registration with form validation
